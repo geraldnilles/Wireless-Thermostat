@@ -1,15 +1,29 @@
 Wireless Thermostat
 ===================
 
-# Motivation
+# Introduction
 Once again, the apartment i live in has a POS thermostat.  It is clear that the temperature reading mechanism is not working at all.  The AC stays on 24/7 and is destroying our power bill.
 
-# Goal
+## Goal
 Create my own thermostat that works with my apartment's heating and cooling.  The temperature reading and relay control will happen on the lightswitch.  To set/read the temperature, i will use Bluetooth.  That will eliminate the need for making something pretty looking.
+
+# Status
+
+## Done
+
+## TODO
+* Buy parts
+* Power BT Transicer and connect via PC (create UART part)
+* Flash Hello-World program on ATTiny (Flash an LED)
+* Send message to ATTiny over Bluetooth (Flash an LED)
+* Fetch ADC reading with BT
 
 
 # Feasability
-Luckly, theh entire Heating and AC unit is controlled by a light switch.  I can just replace the current mechanical light switch with my own contraption.  This will let me experiment without permanently defacing my apartment (since i can easily replace the recepticle). 
+Luckly, theh entire Heating and AC unit is controlled by a light switch.  I can just replace the current mechanical light switch with my own contraption.  This will let me experiment without permanently defacing my apartment (since i can easily replace the recepticle).
+
+http://blog.theultimatelabs.com/2012/07/bluetooth-capacitive-touch-light-switch.html
+ 
 
 # HW
 
@@ -42,7 +56,7 @@ I will use an off-the-shelf AC to 5V converter.  Same one that comes with a smar
 
 I estimate this will cost $5 (or free if i can salvage one from work)
 
-# Circuit Switch
+## Circuit Switch
 For simplicity and saftely, i will use a  5V relay.  That will ensure that the High oltage lines are isolated.
 
 I Estimate this will cost $5
@@ -57,6 +71,9 @@ I will also include a reset button just in case the SW runs into a ditch.
 
 I estimate this will cost $0.10
 
+## Board
+I will need some sort of board to solder all of these components
+
 # SW
 
 ## MCU SW
@@ -66,17 +83,24 @@ The MCU code will need to do the following
 3. Send UART/SPI commands to the Bluetooth module
 
 ### Bluetooth Protocol
-We will need a special protocol for communicating over Bluetooth.  All communication will be initialized by the Server and the MCU will respond.
+We will need a special protocol for communicating over Bluetooth.  All communication will be initialized by the Server and the MCU will respond.  All requests will be exactly 6 characters long.  All responses will be exaclty 2 characters long
 
 Here is a list of Server commands
-* TEMP ?
+* TEMP??
     * Ask for the temperature
-* TEMP 75
+    * Responds with 75
+* TEMP75
     * Set the temperature.  This example shows 75
-* STATE ?
+    * Responds with OK
+* STATE?
     * Ask for the current State
-* STATE 0
+    * Responds with ON or OF
+* STATE0
     * Set the current state to 0 (off) or 1 (on)
+    * responds with OK
+* RESETS
+    * Triggers a MCU reset
+    * Deos not respond
 
 ## Server SW
 I will use my server to send Bluetooth signals to the device.  This will allow a lot of cool functionality.  For example. i could automatically turn off the AC based when our Phone's leave the WiFi network.
@@ -89,3 +113,33 @@ I could also link it to a Public Google Calendar.  That would let us control eve
 
 The Bluetooth interface will just be a Unix-style UART interface.  There will be a COMM port that you write and read to.
 
+
+# Installation
+In side the switch receptical will be the following wires:
+
+* From the breaker
+    * Line
+    * Nuetral
+    * GND
+* To the AC
+    * Line
+    * Nuetral
+
+The 5V circuitry and coil of the raily will all be connected to GND.
+
+	
+	                                           ________
+	--L------*---------------------------------|       |
+	         |                  _________      | AC Fan|
+	--N---*--+------------------|        |-----|_______|
+	      |__|                  |  Relay |
+	     | 5V|                  |________|
+	--G--|___|
+	
+# Programming
+I will likely need to use my Arduino in order to program the ATTiny chip.  I've done it before so it should be too bad.
+
+
+
+* 
+* 
