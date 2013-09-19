@@ -28,14 +28,15 @@ http://blog.theultimatelabs.com/2012/07/bluetooth-capacitive-touch-light-switch.
 # HW
 
 ## Controller
-ATTiny87
+This project will use the STM32F030F4P6.  This is an ARM based MCU that uses the Cortex M0 core.  This controller has a UART interface, PWM, and plenty of GPIOs
 
-Has UART and plenty of ADCs/GPIOs  
+This will cost around $1.50
 
-This will cost around $1.72
+http://www.mouser.com/ProductDetail/STMicroelectronics/STM32F030F4P6/?qs=sGAEpiMZZMuoKKEcg8mMKOHkam7XjJnw3SF6NWq8tIw%3d
 
-http://www.mouser.com/ProductDetail/Atmel/ATTINY87-XU/?qs=sGAEpiMZZMvqv2n3s2xjsWfDNH99npBWdw0d9K9dp2A%3d
+There is also a dev board that costs $8.  Why not?! http://www.mouser.com/Search/ProductDetail.aspx?R=STM32F0DISCOVERYvirtualkey51120000virtualkey511-STM32F0DISCOVERY
 
+This will be my first time using an ARM MCU.  In the past, I used AVR since the tools are well supported in the open-source community.  After searching around, it appears that the STM32 line is also well supported.  Ever STM32 part has a built-in bootloader.  This bootloader lets you program the part using any UART port.  By pulling up the correct Boot pin, you will enter this programming mode.  From there, you can use one of many Open source tools for programming the flash.  
 
 ## Bluetooth
 I will use a Bluetooth to UART device. Amazon sells one called HC-05 which looks promising.  

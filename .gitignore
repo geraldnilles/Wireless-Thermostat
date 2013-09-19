@@ -15,6 +15,7 @@ local.properties
 .classpath
 .settings/
 .loadpath
+mcu_sw/docs
 
 # External tool builders
 .externalToolBuilders/
